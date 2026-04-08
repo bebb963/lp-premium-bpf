@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView, animate } from 'framer-motion';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -64,7 +64,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'O PROPÓSITO', href: '#sobre' },
     { name: 'A ESTRUTURA', href: '#estrutura' },
-    { name: 'DIFERENCIAIS', href: '#diferenciais' },
+    { name: 'PRODUTOS', href: '#diferenciais' },
     { name: 'QUALIDADE', href: '#qualidade' },
     { name: 'DEPOIMENTOS', href: '#depoimentos' },
     { name: 'FAQ', href: '#faq' },
@@ -88,7 +88,7 @@ const Navbar = () => {
             <a 
               key={link.name} 
               href={link.href}
-              className="font-headline text-[11px] font-black uppercase tracking-[0.15em] text-primary hover:text-accent-orange transition-all duration-300 relative group"
+              className="font-headline text-[13px] font-black uppercase tracking-[0.15em] text-primary hover:text-accent-orange transition-all duration-300 relative group"
             >
               {link.name}
               <span className="absolute -bottom-1.5 left-0 w-0 h-0.5 bg-accent-orange transition-all duration-300 group-hover:w-full"></span>
@@ -216,7 +216,7 @@ const Hero = () => {
                 <span className="inline-block px-4 py-1 bg-black text-white font-headline font-bold text-[10px] tracking-widest uppercase mb-4 rounded mx-auto lg:mx-0">
                   COTAÇÃO RÁPIDA
                 </span>
-                <h3 className="font-headline font-extrabold text-2xl text-primary mb-2">Solicite sua cotação agora</h3>
+                <h3 className="font-headline font-extrabold text-2xl text-primary mb-2 uppercase">Entre em contato agora</h3>
               </div>
               <form id="cotacao" className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
@@ -446,10 +446,16 @@ const StructureCarousel = () => {
     { title: 'Equipamento técnico de ponta.', img: '/Equipamentos.jpg' },
   ];
 
-  const maxIndex = slides.length - visibleSlides;
+  const maxIndex = slides.length - 1;
 
   const next = () => setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
   const prev = () => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
+
+  const handleDragEnd = (_: any, info: any) => {
+    const threshold = 50;
+    if (info.offset.x < -threshold) next();
+    else if (info.offset.x > threshold) prev();
+  };
 
   return (
     <section id="estrutura" className="py-8 md:py-12 bg-surface overflow-hidden">
@@ -476,10 +482,8 @@ const StructureCarousel = () => {
           <motion.div 
             className="flex gap-6"
             drag="x"
-            dragConstraints={{
-              right: 0,
-              left: -(slides.length - visibleSlides) * (100 / visibleSlides) + "%" // Precise limit based on indices
-            }}
+            dragElastic={0.1}
+            onDragEnd={handleDragEnd}
             animate={{ x: `-${Math.min(currentIndex, maxIndex) * (100 / visibleSlides)}%` }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
@@ -499,7 +503,7 @@ const StructureCarousel = () => {
         </div>
 
         <div className="flex justify-center gap-3 mt-10">
-          {slides.slice(0, maxIndex + 1).map((_, i) => (
+          {slides.map((_, i) => (
             <button 
               key={i} 
               onClick={() => setCurrentIndex(i)}
@@ -512,10 +516,41 @@ const StructureCarousel = () => {
   );
 };
 
+const Counter = ({ value }: { value: string }) => {
+  const [displayValue, setDisplayValue] = useState("0");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      // Extract number, prefix, and suffix
+      const match = value.match(/([^\d]*)([\d.]+)([^\d]*)/);
+      if (match) {
+        const prefix = match[1];
+        const numberStr = match[2].replace(/\./g, '');
+        const suffix = match[3];
+        const target = parseInt(numberStr, 10);
+
+        const controls = animate(0, target, {
+          duration: 2,
+          ease: "easeOut",
+          onUpdate(latest) {
+            const formatted = Math.floor(latest).toLocaleString('pt-BR');
+            setDisplayValue(`${prefix}${formatted}${suffix}`);
+          }
+        });
+        return () => controls.stop();
+      }
+    }
+  }, [isInView, value]);
+
+  return <span ref={ref}>{displayValue}</span>;
+};
+
 const StatsSection = () => {
   const stats = [
-    { val: '2.000.000L', label: 'Capacidade total em tanques térmicos', dark: false },
-    { val: '3 OPERAÇÕES', label: 'Beneficiamento, distribuição e limpeza industrial', dark: true },
+    { val: '2.000.000L', label: 'Capacidade total em tanques térmicos', dark: true },
+    { val: '3 OPERAÇÕES', label: 'Beneficiamento, distribuição e limpeza industrial', dark: false },
     { val: '15+', label: 'Anos de experiência\nno mercado de combustíveis industriais', dark: false },
     { val: '+50', label: 'Indústrias atendidas recorrentemente em todo o Brasil', dark: false },
   ];
@@ -532,7 +567,9 @@ const StatsSection = () => {
               className={`px-6 py-10 flex flex-col justify-start items-center text-center rounded-xl shadow-lg border border-outline-variant/10 transition-all duration-300 min-h-[280px] ${stat.dark ? 'bg-black text-white' : 'bg-surface text-primary'}`}
             >
               <div className="h-20 flex items-center justify-center mb-6">
-                <span className="block font-headline font-black text-[28px] tracking-tight whitespace-nowrap">{stat.val}</span>
+                <span className="block font-headline font-black text-[28px] tracking-tight whitespace-nowrap">
+                  <Counter value={stat.val} />
+                </span>
               </div>
               <span className={`text-[13px] font-extrabold tracking-[0.15em] uppercase leading-relaxed ${stat.dark ? 'text-white/70' : 'text-on-surface-variant'}`}>
                 {stat.label.split('\n').map((line, idx) => (
