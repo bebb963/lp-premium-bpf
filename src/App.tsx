@@ -405,6 +405,15 @@ const QualitySection = () => {
 
 const StructureCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleSlides, setVisibleSlides] = useState(1);
+
+  useEffect(() => {
+    const updateVisible = () => setVisibleSlides(window.innerWidth > 768 ? 3 : 1);
+    updateVisible();
+    window.addEventListener('resize', updateVisible);
+    return () => window.removeEventListener('resize', updateVisible);
+  }, []);
+
   const slides = [
     { title: 'Armazenamento em tanques térmicos', img: '/tanquesarmazenamento.jpg' },
     { title: 'ETE - Estação de Tratamento de Efluentes própria', img: '/ete.jpg' },
@@ -413,8 +422,10 @@ const StructureCarousel = () => {
     { title: 'Equipamento técnico de ponta.', img: '/Equipamentos.jpg' },
   ];
 
-  const next = () => setCurrentIndex((prev) => (prev + 1) % slides.length);
-  const prev = () => setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  const maxIndex = slides.length - visibleSlides;
+
+  const next = () => setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
+  const prev = () => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
 
   return (
     <section id="estrutura" className="py-8 md:py-12 bg-surface overflow-hidden">
@@ -435,7 +446,7 @@ const StructureCarousel = () => {
         </div>
 
         <div className="relative">
-          <div className="flex gap-6 transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentIndex * (100 / (window.innerWidth > 768 ? 3 : 1))}%)` }}>
+          <div className="flex gap-6 transition-transform duration-500 ease-out" style={{ transform: `translateX(-${Math.min(currentIndex, maxIndex) * (100 / visibleSlides)}%)` }}>
             {slides.map((slide, i) => (
               <div key={i} className="min-w-full md:min-w-[calc(33.333%-1rem)] group">
                 <div className="aspect-[4/5] bg-primary relative overflow-hidden rounded-2xl shadow-xl">
@@ -452,7 +463,7 @@ const StructureCarousel = () => {
         </div>
 
         <div className="flex justify-center gap-3 mt-10">
-          {slides.map((_, i) => (
+          {slides.slice(0, maxIndex + 1).map((_, i) => (
             <button 
               key={i} 
               onClick={() => setCurrentIndex(i)}
@@ -510,7 +521,7 @@ const InstitutionalVideo = () => {
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10 group bg-black">
           <iframe 
             className="absolute inset-0 w-full h-full"
-            src="https://www.youtube.com/embed/JazsRgi07X4?si=Asp5IDkuOJUgzUf5" 
+            src="https://www.youtube.com/embed/wIaCpIW-yYk?si=NiAVFIZAZ4KUrSV8" 
             title="YouTube video player" 
             frameBorder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
