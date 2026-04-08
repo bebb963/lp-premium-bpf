@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-display: "Manrope", sans-serif;
+  --font-epilogue: "Epilogue", sans-serif;
+  --font-dmsans: "DM Sans", sans-serif;
+
+  --color-accent-orange: #F57C00;
+  --color-surface: #faf9fb;
+  --color-surface-container-low: #f4f3f5;
+  --color-surface-container-high: #e9e8ea;
+  --color-surface-container-highest: #e3e2e4;
+  --color-outline-variant: #cfc4c5;
+
+  --animate-marquee: marquee 40s linear infinite;
+  
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-[#1a1c1d] font-body selection:bg-accent-orange selection:text-white;
+  }
+}
+
+@layer utilities {
+  .glass-nav {
+    @apply backdrop-blur-md bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)];
+  }
+  .glass-card {
+    @apply backdrop-blur-md bg-white/70 border border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)];
+  }
+  .bg-pattern {
+    background-image: radial-gradient(#F57C00 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    opacity: 0.05;
+  }
+}
