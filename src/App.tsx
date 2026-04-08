@@ -216,7 +216,7 @@ const Hero = () => {
                 <span className="inline-block px-4 py-1 bg-black text-white font-headline font-bold text-[10px] tracking-widest uppercase mb-4 rounded mx-auto lg:mx-0">
                   COTAÇÃO RÁPIDA
                 </span>
-                <h3 className="font-headline font-bold text-2xl text-primary">Inicie sua operação</h3>
+                <h3 className="font-headline font-extrabold text-2xl text-primary mb-2">Solicite sua cotação agora</h3>
               </div>
               <form id="cotacao" className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
@@ -248,7 +248,7 @@ const Hero = () => {
                   </select>
                 </div>
                 <button type="button" className="md:col-span-2 bg-black text-white font-headline font-black text-xs tracking-widest mt-4 hover:bg-accent-orange transition-all rounded min-h-[52px] w-full shadow-lg hover:shadow-accent-orange/20">
-                  Solicitar Cotação →
+                  SOLICITAR COTAÇÃO →
                 </button>
               </form>
             </div>
