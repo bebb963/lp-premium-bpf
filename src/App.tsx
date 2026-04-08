@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -176,7 +176,7 @@ const Hero = () => {
             </h1>
             
             
-            <p className="font-body text-xl md:text-2xl text-white/80 leading-[1.65] mx-auto lg:mx-0">
+            <p className="font-body text-xl md:text-2xl lg:text-[23px] text-white/80 leading-[1.65] mx-auto lg:mx-0">
               Distribuimos óleo combustível pesado (BPF) para indústrias com operação contínua. 
             </p>
 
@@ -316,19 +316,20 @@ const Pillars = () => {
   const cards = [
     { title: 'CALDEIRAS', img: '/caldeira.webp' },
     { title: 'FORNOS', img: '/forno.png' },
-    { title: 'ASFÁLTICO', img: '/asfaltico.jpg' },
+    { title: 'Indústria\nAsfáltica', img: '/asfaltico.jpg' },
   ];
 
   return (
     <section id="diferenciais" className="py-16 lg:py-24 bg-surface relative">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-12">
-        <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-10 text-center md:text-left">
-          <div className="max-w-2xl mx-auto md:mx-0">
-            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary mb-6 tracking-[-0.01em] leading-[1.1]">
+        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-10 text-center md:text-left">
+          <div className="max-w-4xl mx-auto md:mx-0">
+            <h2 className="font-headline font-extrabold text-3xl md:text-6xl text-primary mb-6 tracking-[-0.01em] leading-[1.1]">
               Cada operação exige um produto diferente. <br /> Nós temos os dois.
             </h2>
-            <p className="text-on-surface-variant text-lg leading-[1.65] max-w-[65ch] mx-auto md:mx-0">
-              BPF para geração de vapor, com pré-aquecimento a 80–90°C. APF com alta fluidez e abastecimento programado. O produto certo, na hora certa, com frota própria e documentação completa.
+            <p className="text-on-surface-variant text-xl lg:text-[23px] leading-[1.65] max-w-[85ch] mx-auto md:mx-0">
+              <strong>BPF (óleo pesado)</strong> para geração de vapor, com pré-aquecimento a 80–90°C. <br />
+              <strong>APF (óleo leve)</strong> com alta fluidez e abastecimento programado. O produto certo, na hora certa, com frota própria e documentação completa.
             </p>
           </div>
           <div className="w-20 h-1 bg-accent-orange mx-auto md:mx-0"></div>
@@ -353,7 +354,12 @@ const Pillars = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:bg-black/40 transition-colors duration-500"></div>
               <div className="absolute inset-0 flex items-center justify-center p-8">
                 <h3 className="font-headline font-extrabold text-3xl text-white tracking-tight uppercase drop-shadow-lg">
-                  {card.title}
+                  {card.title.split('\n').map((line, idx) => (
+                    <React.Fragment key={idx}>
+                      {line}
+                      {idx < card.title.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
                 </h3>
               </div>
             </motion.div>
@@ -387,7 +393,7 @@ const QualitySection = () => {
               <h3 className="font-headline font-extrabold text-3xl md:text-5xl text-white mb-8 tracking-[-0.01em] leading-[1.1]">
                 Rigor técnico <br /> em todo o ciclo
               </h3>
-              <p className="text-white/70 text-lg mb-10 max-w-[65ch] leading-[1.65] mx-auto lg:mx-0">
+              <p className="text-white/70 text-xl md:text-[22px] mb-10 max-w-[65ch] leading-[1.65] mx-auto lg:mx-0">
                 Do armazenamento à entrega, realizamos testes de qualidade continuamente. Cada lote sai com laudo de viscosidade, ponto de fulgor e densidade antes da entrega.
                 Eliminamos o risco de contaminação, dano em equipamentos e paradas não programadas para que você tenha controle total da sua operação.
               </p>
@@ -450,8 +456,8 @@ const StructureCarousel = () => {
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 text-center md:text-left gap-6 md:gap-0">
           <div>
-            <h2 className="font-epilogue font-bold text-4xl md:text-[42px] tracking-tight text-primary leading-[1.1]">Estrutura que garante a entrega</h2>
-            <p className="font-dmsans text-lg text-on-surface-variant mt-4 leading-[1.65] max-w-[55ch] mx-auto md:mx-0">
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary leading-[1.1] tracking-[-0.01em]">Estrutura que garante a entrega</h2>
+            <p className="font-dmsans text-xl lg:text-[23px] text-on-surface-variant mt-4 leading-[1.65] max-w-[55ch] mx-auto md:mx-0">
               Temos controle total do ciclo do óleo combustivel.<br />
               Beneficiamento, análise, armazenamento e transporte feitos por nós, a certeza de que você receberá o produto certo dentro do prazo combinado.
             </p>
@@ -466,8 +472,17 @@ const StructureCarousel = () => {
           </div>
         </div>
 
-        <div className="relative">
-          <div className="flex gap-6 transition-transform duration-500 ease-out" style={{ transform: `translateX(-${Math.min(currentIndex, maxIndex) * (100 / visibleSlides)}%)` }}>
+        <div className="relative cursor-grab active:cursor-grabbing">
+          <motion.div 
+            className="flex gap-6"
+            drag="x"
+            dragConstraints={{
+              right: 0,
+              left: -(slides.length - visibleSlides) * (100 / visibleSlides) + "%" // Precise limit based on indices
+            }}
+            animate={{ x: `-${Math.min(currentIndex, maxIndex) * (100 / visibleSlides)}%` }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
             {slides.map((slide, i) => (
               <div key={i} className="min-w-full md:min-w-[calc(33.333%-1rem)] group">
                 <div className="aspect-[4/5] bg-primary relative overflow-hidden rounded-2xl shadow-xl">
@@ -475,12 +490,12 @@ const StructureCarousel = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
                   <div className="absolute bottom-8 left-8">
                     <div className="h-1 w-12 bg-accent-orange mb-4"></div>
-                    <span className="font-headline font-extrabold text-[11px] uppercase tracking-widest text-white">{slide.title}</span>
+                    <span className="font-headline font-extrabold text-[13px] uppercase tracking-[0.2em] text-white">{slide.title}</span>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         <div className="flex justify-center gap-3 mt-10">
@@ -500,8 +515,8 @@ const StructureCarousel = () => {
 const StatsSection = () => {
   const stats = [
     { val: '2.000.000L', label: 'Capacidade total em tanques térmicos', dark: false },
-    { val: '3 operações', label: 'Beneficiamento, distribuição e limpeza industrial', dark: true },
-    { val: '15+', label: 'ANOS DE EXPERIÊNCIA', dark: false },
+    { val: '3 OPERAÇÕES', label: 'Beneficiamento, distribuição e limpeza industrial', dark: true },
+    { val: '15+', label: 'Anos de experiência\nno mercado de combustíveis industriais', dark: false },
     { val: '+50', label: 'Indústrias atendidas recorrentemente em todo o Brasil', dark: false },
   ];
 
@@ -514,10 +529,19 @@ const StatsSection = () => {
             <motion.div 
               key={i}
               whileHover={{ y: -5 }}
-              className={`p-12 flex flex-col justify-center items-center text-center rounded-xl shadow-lg border border-outline-variant/10 transition-all duration-300 ${stat.dark ? 'bg-black text-white' : 'bg-surface text-primary'}`}
+              className={`px-6 py-10 flex flex-col justify-start items-center text-center rounded-xl shadow-lg border border-outline-variant/10 transition-all duration-300 min-h-[280px] ${stat.dark ? 'bg-black text-white' : 'bg-surface text-primary'}`}
             >
-              <span className={`block font-headline font-black mb-4 ${stat.val.length > 8 ? 'text-2xl lg:text-3xl' : 'text-5xl'}`}>{stat.val}</span>
-              <span className={`text-[11px] font-extrabold tracking-[0.2em] uppercase ${stat.dark ? 'text-white/70' : 'text-on-surface-variant'}`}>{stat.label}</span>
+              <div className="h-20 flex items-center justify-center mb-6">
+                <span className="block font-headline font-black text-[28px] tracking-tight whitespace-nowrap">{stat.val}</span>
+              </div>
+              <span className={`text-[13px] font-extrabold tracking-[0.15em] uppercase leading-relaxed ${stat.dark ? 'text-white/70' : 'text-on-surface-variant'}`}>
+                {stat.label.split('\n').map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    {idx < stat.label.split('\n').length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </span>
             </motion.div>
           ))}
         </div>
@@ -533,10 +557,10 @@ const InstitutionalVideo = () => {
         <div className="inline-block px-4 py-1 bg-accent-orange/20 text-accent-orange font-headline font-bold text-[10px] tracking-widest uppercase mb-4 rounded border border-accent-orange/30">
           O NOSSO PROPÓSITO
         </div>
-        <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-white mb-6 uppercase">
-          O ÓLEO QUE ALIMENTA A <br /> CHAMA DA INDÚSTRIA BRASILEIRA
+        <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-white mb-6">
+          O óleo que alimenta a <br /> chama da indústria brasileira
         </h2>
-        <p className="text-white/70 mb-12 max-w-[55ch] mx-auto text-lg">
+        <p className="text-white/70 mb-12 max-w-[55ch] mx-auto text-xl md:text-[22px]">
           Há mais de quinze anos ao lado de quem acorda cedo, opera em silêncio e sustenta a economia real do país.
         </p>
         <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/10 group bg-black">
