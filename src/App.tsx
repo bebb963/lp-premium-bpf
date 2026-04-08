@@ -177,7 +177,7 @@ const Hero = () => {
             
             
             <p className="font-body text-xl md:text-2xl lg:text-[23px] text-white/80 leading-[1.65] mx-auto lg:mx-0">
-              Distribuimos óleo combustível pesado (BPF) para indústrias com operação contínua. 
+              Distribuímos óleo combustível BPF e APF para indústrias com operação contínua. 
             </p>
 
             {/* Licenses Marquee for Desktop (hidden on mobile) */}
