@@ -143,13 +143,15 @@ const Hero = () => {
       >
         <div className="w-full h-full relative">
           <video 
-            src="/hero-section.mp4"
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover object-center md:translate-x-0"
-          />
+          >
+            <source src="https://res.cloudinary.com/dehvuxehx/video/upload/v1744616978/hero-section_qyhvxd.webm" type="video/webm" />
+            <source src="https://res.cloudinary.com/dehvuxehx/video/upload/v1744616978/hero-section_qyhvxd.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/30"></div>
         </div>
       </motion.div>
