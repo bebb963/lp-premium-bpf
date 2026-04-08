@@ -180,21 +180,28 @@ const Hero = () => {
               Distribuimos óleo combustível pesado (BPF) para indústrias com operação contínua. 
             </p>
 
-            {/* Certifications for Desktop (hidden on mobile) */}
-            <div className="hidden lg:grid grid-cols-4 gap-4 md:gap-6 pt-10 mt-12 border-t border-white/10 items-center">
-              {[
-                { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4-FNA-sTRaIR3X0FGRcNKjr6ZK_UA0X1D7cpHdZjiW-PDEGy27IUH2rWp9_PeCEg4Tfbi8UiUA01_BimL4NFD8nrvBWrWB6C5RJq0G-YJGdBxnzbDJx_LAQrVCrlZGrzAuLFd_KEG6RYPrFVBPGEmK3ynU0-vQHE4z4uC2niah1r8-nKPyURR5nBPbff4dOMK8GbKgCFbYOyKOXOVJDHAQcari9rwfg8GEL-bWNATqliqf1TwwlrLVVZ_OGx-XU2QfdywwQkNQxo', label: 'Qualidade' },
-                { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuALFv06vAYwO9SeGGIPK46CQJHTrB0ShETR8yk-uFFyU2HnE-VQO7EKiWNmdjyByFVqb4-BjC4qtw6PDby45vk_Z9H-OKEGxCzkR9e2Px4zvDdCB9ZCwKkKfE0FnPTANhNTkxkz6edufUIill6216MP_SqpIIchi4fEAjrovapHTv8gqj01u8iuP8YFCnmQMfqo0XAqm4vPoTZHYF0wCKm9o7xTywDJZ618NXeAKHWFHzFvWxRXwAUmmNwVyHxHTBSXvFexvU1mAxg', label: 'Ambiental' },
-                { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAHA_D12kjxYWA5TM1wRy1ZQFCZhS1_eocV_zP0u4XHc49bV7oeZvcdsCVV4Mbs19yMv6S6suQgQY_pslX5mbRF9c2HbBx8ucshgCSp3RcHyao26MVYqP9o7wRis1voVgrjjvQnrq65iSwYj8yiRDJK5ahUs8XEyhlmzIbzn8y_QUtsM-5WTj7oGsTBNdmikeBz5UMixEC3tzXKN1BrpOI3TS08bRdYMxpM4rD6oTC1o4b4euxvlPZ0DcJQhCoGeTGOxNimlhPsc2s', label: 'Federal' },
-                { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDNwMJNztF_eIXFdZOMX1jG_gcbAGaKMkGhUN5LAO2JQdLUCwfgrDBc809q67jG-wJ8FYov79EKRqualzKHFF0LnozLyk-N9UM0NuRDRAAEHoOnAw3yaH4LiTPgz4OFLroblfO1l-pn9b6safBanYhKp38bHKDXpP616oQaSq2MqrBBmyeT4FvZ__qRSQbzX8XpbWVqgu9ANH2R7bqzXEOu0b1gqIXKjeajLoLZdnDBIqbrDk5HNS6uYfUBiu12dz64yjz4uYg39CA', label: 'ANP' },
-              ].map((cert, i) => (
-                <div key={i} className="flex flex-col items-start gap-2 group cursor-pointer w-full text-left">
-                  <div className="h-10 flex items-center justify-start w-full opacity-60 group-hover:opacity-100 transition-opacity">
-                    <img src={cert.img} alt={cert.label} className="max-h-full max-w-[80px] object-contain brightness-0 invert" referrerPolicy="no-referrer" />
-                  </div>
-                  <span className="text-[9px] font-bold tracking-[0.05em] text-white/50 uppercase block w-full">{cert.label}</span>
+            {/* Licenses Marquee for Desktop (hidden on mobile) */}
+            <div className="hidden lg:block pt-10 mt-12 border-t border-white/10 relative z-20">
+              <span className="text-[10px] font-headline font-extrabold uppercase tracking-[0.2em] text-accent-orange mb-4 block">Licenças</span>
+              <div className="w-full overflow-hidden flex bg-transparent relative py-4">
+                <div className="whitespace-nowrap flex animate-marquee flex-nowrap items-center gap-10">
+                  {[
+                    'ANTT', 'Anvisa', 'Cetesb-Sao-Paulo', 'Conselho-Regional-de-Quimica', 'Ibama', 
+                    'Iema-Espirito-Santo', 'Inea-Rio-de-Janeiro', 'PAE-Suatrans', 'Policia-Federal', 
+                    'Prefeitura-Municipal-de-Mogi-Mirim', 'SINIR', 'Seguro-Ambiental-AIG', 'Sistema-de-Gerenciamento-On-line-de-Residuos'
+                  ].map((name, i) => (
+                    <img key={i} src={`/licenca-${name}.png`} alt={name} className="h-8 w-auto object-contain invert opacity-60 hover:opacity-100 transition-opacity" />
+                  ))}
+                  {/* Duplication for infinite effect */}
+                  {[
+                    'ANTT', 'Anvisa', 'Cetesb-Sao-Paulo', 'Conselho-Regional-de-Quimica', 'Ibama', 
+                    'Iema-Espirito-Santo', 'Inea-Rio-de-Janeiro', 'PAE-Suatrans', 'Policia-Federal', 
+                    'Prefeitura-Municipal-de-Mogi-Mirim', 'SINIR', 'Seguro-Ambiental-AIG', 'Sistema-de-Gerenciamento-On-line-de-Residuos'
+                  ].map((name, i) => (
+                    <img key={`dup-${i}`} src={`/licenca-${name}.png`} alt={name} className="h-8 w-auto object-contain invert opacity-60 hover:opacity-100 transition-opacity" />
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </motion.div>
 
@@ -241,7 +248,7 @@ const Hero = () => {
                   </select>
                 </div>
                 <button type="button" className="md:col-span-2 bg-black text-white font-headline font-black text-xs tracking-widest mt-4 hover:bg-accent-orange transition-all rounded min-h-[52px] w-full shadow-lg hover:shadow-accent-orange/20">
-                  SOLICITAR COTAÇÃO BPF →
+                  Solicitar Cotação →
                 </button>
               </form>
             </div>
@@ -249,25 +256,33 @@ const Hero = () => {
         </div>
 
         {/* Certifications for Mobile (hidden on desktop) */}
+        {/* Licenses Marquee for Mobile (hidden on desktop) */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-          className="grid lg:hidden grid-cols-4 gap-2 pt-12 mt-12 bg-transparent border-t border-white/10 items-center justify-items-center"
+          className="lg:hidden w-full pt-10 mt-12 border-t border-white/10 relative z-20"
         >
-          {[
-            { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4-FNA-sTRaIR3X0FGRcNKjr6ZK_UA0X1D7cpHdZjiW-PDEGy27IUH2rWp9_PeCEg4Tfbi8UiUA01_BimL4NFD8nrvBWrWB6C5RJq0G-YJGdBxnzbDJx_LAQrVCrlZGrzAuLFd_KEG6RYPrFVBPGEmK3ynU0-vQHE4z4uC2niah1r8-nKPyURR5nBPbff4dOMK8GbKgCFbYOyKOXOVJDHAQcari9rwfg8GEL-bWNATqliqf1TwwlrLVVZ_OGx-XU2QfdywwQkNQxo', label: 'Qualidade' },
-            { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuALFv06vAYwO9SeGGIPK46CQJHTrB0ShETR8yk-uFFyU2HnE-VQO7EKiWNmdjyByFVqb4-BjC4qtw6PDby45vk_Z9H-OKEGxCzkR9e2Px4zvDdCB9ZCwKkKfE0FnPTANhNTkxkz6edufUIill6216MP_SqpIIchi4fEAjrovapHTv8gqj01u8iuP8YFCnmQMfqo0XAqm4vPoTZHYF0wCKm9o7xTywDJZ618NXeAKHWFHzFvWxRXwAUmmNwVyHxHTBSXvFexvU1mAxg', label: 'Ambiental' },
-            { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAHA_D12kjxYWA5TM1wRy1ZQFCZhS1_eocV_zP0u4XHc49bV7oeZvcdsCVV4Mbs19yMv6S6suQgQY_pslX5mbRF9c2HbBx8ucshgCSp3RcHyao26MVYqP9o7wRis1voVgrjjvQnrq65iSwYj8yiRDJK5ahUs8XEyhlmzIbzn8y_QUtsM-5WTj7oGsTBNdmikeBz5UMixEC3tzXKN1BrpOI3TS08bRdYMxpM4rD6oTC1o4b4euxvlPZ0DcJQhCoGeTGOxNimlhPsc2s', label: 'Federal' },
-            { img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDNwMJNztF_eIXFdZOMX1jG_gcbAGaKMkGhUN5LAO2JQdLUCwfgrDBc809q67jG-wJ8FYov79EKRqualzKHFF0LnozLyk-N9UM0NuRDRAAEHoOnAw3yaH4LiTPgz4OFLroblfO1l-pn9b6safBanYhKp38bHKDXpP616oQaSq2MqrBBmyeT4FvZ__qRSQbzX8XpbWVqgu9ANH2R7bqzXEOu0b1gqIXKjeajLoLZdnDBIqbrDk5HNS6uYfUBiu12dz64yjz4uYg39CA', label: 'ANP' },
-          ].map((cert, i) => (
-            <div key={i} className="flex flex-col items-center justify-center gap-2 group cursor-pointer w-full text-center">
-              <div className="h-10 flex items-center justify-center w-full opacity-60 group-hover:opacity-100 transition-opacity">
-                <img src={cert.img} alt={cert.label} className="max-h-full max-w-[80px] md:max-w-full object-contain brightness-0 invert" referrerPolicy="no-referrer" />
-              </div>
-              <span className="text-[8px] sm:text-[9px] font-bold tracking-[0.05em] text-white/50 uppercase block w-full">{cert.label}</span>
+          <span className="text-[10px] font-headline font-extrabold uppercase tracking-[0.2em] text-accent-orange mb-4 block text-center">Licenças</span>
+          <div className="w-full overflow-hidden flex bg-transparent relative py-2">
+            <div className="whitespace-nowrap flex animate-marquee flex-nowrap items-center gap-8">
+            {[
+                'ANTT', 'Anvisa', 'Cetesb-Sao-Paulo', 'Conselho-Regional-de-Quimica', 'Ibama', 
+                'Iema-Espirito-Santo', 'Inea-Rio-de-Janeiro', 'PAE-Suatrans', 'Policia-Federal', 
+                'Prefeitura-Municipal-de-Mogi-Mirim', 'SINIR', 'Seguro-Ambiental-AIG', 'Sistema-de-Gerenciamento-On-line-de-Residuos'
+              ].map((name, i) => (
+                <img key={i} src={`/licenca-${name}.png`} alt={name} className="h-6 w-auto object-contain invert opacity-60" />
+              ))}
+              {/* Duplication for infinite effect */}
+              {[
+                'ANTT', 'Anvisa', 'Cetesb-Sao-Paulo', 'Conselho-Regional-de-Quimica', 'Ibama', 
+                'Iema-Espirito-Santo', 'Inea-Rio-de-Janeiro', 'PAE-Suatrans', 'Policia-Federal', 
+                'Prefeitura-Municipal-de-Mogi-Mirim', 'SINIR', 'Seguro-Ambiental-AIG', 'Sistema-de-Gerenciamento-On-line-de-Residuos'
+              ].map((name, i) => (
+                <img key={`dup-${i}`} src={`/licenca-${name}.png`} alt={name} className="h-6 w-auto object-contain invert opacity-60" />
+              ))}
             </div>
-          ))}
+          </div>
         </motion.div>
       </div>
     </section>
@@ -301,6 +316,7 @@ const Pillars = () => {
   const cards = [
     { title: 'CALDEIRAS', img: '/caldeira.webp' },
     { title: 'FORNOS', img: '/forno.png' },
+    { title: 'ASFÁLTICO', img: '/asfaltico.jpg' },
   ];
 
   return (
@@ -309,16 +325,16 @@ const Pillars = () => {
         <div className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-10 text-center md:text-left">
           <div className="max-w-2xl mx-auto md:mx-0">
             <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary mb-6 tracking-[-0.01em] leading-[1.1]">
-              Caldeiras e fornos têm exigências diferentes. Atendemos as duas.
+              Cada operação exige um produto diferente. <br /> Nós temos os dois.
             </h2>
             <p className="text-on-surface-variant text-lg leading-[1.65] max-w-[65ch] mx-auto md:mx-0">
-              BPF para geração de vapor exige pré-aquecimento a 80–90°C. Fornos de tratamento térmico precisam de especificação constante. A Premium entrega o produto certo para cada equipamento com frota própria, documentação completa e reabastecimento programado.
+              BPF para geração de vapor, com pré-aquecimento a 80–90°C. APF com alta fluidez e abastecimento programado. O produto certo, na hora certa, com frota própria e documentação completa.
             </p>
           </div>
           <div className="w-20 h-1 bg-accent-orange mx-auto md:mx-0"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 lg:gap-6">
           {cards.map((card, i) => (
             <motion.div 
               key={i}
@@ -385,7 +401,7 @@ const QualitySection = () => {
             <div className="flex flex-col gap-4 w-full lg:max-w-md">
               {[
                 { icon: <FlaskConical className="w-6 h-6 text-accent-orange" />, label: 'LABORATÓRIO', value: 'Laudo técnico' },
-                { icon: <Database className="w-6 h-6 text-accent-orange" />, label: 'ARMAZENAMENTO', value: '3000m³' },
+                { icon: <Database className="w-6 h-6 text-accent-orange" />, label: 'ARMAZENAMENTO', value: '2.000m³' },
                 { icon: <Truck className="w-6 h-6 text-accent-orange" />, label: 'DISTRIBUIÇÃO', value: 'Frota própria' },
               ].map((item, i) => (
                 <div key={i} className="p-6 md:p-8 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-between group hover:border-accent-orange/50 transition-colors">
@@ -434,8 +450,11 @@ const StructureCarousel = () => {
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-12">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 text-center md:text-left gap-6 md:gap-0">
           <div>
-            <h2 className="font-epilogue font-bold text-4xl md:text-[42px] tracking-tight text-primary leading-[1.1]">Conheça a Premium ambiental</h2>
-            <p className="font-dmsans text-lg text-on-surface-variant mt-4 leading-[1.65] max-w-[55ch] mx-auto md:mx-0">Beneficiamento, análise de lote, armazenamento e transporte feitos pela mesma empresa. Isso é o que garante que o produto chega certo.</p>
+            <h2 className="font-epilogue font-bold text-4xl md:text-[42px] tracking-tight text-primary leading-[1.1]">Estrutura que garante a entrega</h2>
+            <p className="font-dmsans text-lg text-on-surface-variant mt-4 leading-[1.65] max-w-[55ch] mx-auto md:mx-0">
+              Temos controle total do ciclo do óleo combustivel.<br />
+              Beneficiamento, análise, armazenamento e transporte feitos por nós, a certeza de que você receberá o produto certo dentro do prazo combinado.
+            </p>
           </div>
           <div className="flex gap-4">
             <button onClick={prev} className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white border border-black/10 hover:bg-accent-orange hover:text-white transition-all shadow-sm">
@@ -480,10 +499,10 @@ const StructureCarousel = () => {
 
 const StatsSection = () => {
   const stats = [
-    { val: '3000m³', label: '5.000L / VOLUME MÍNIMO', dark: false },
-    { val: '6', label: 'ESTADOS ATENDIDOS', dark: true },
+    { val: '2.000.000L', label: 'Capacidade total em tanques térmicos', dark: false },
+    { val: '3 operações', label: 'Beneficiamento, distribuição e limpeza industrial', dark: true },
     { val: '15+', label: 'ANOS DE EXPERIÊNCIA', dark: false },
-    { val: '5000L', label: '21 DIAS / PRAZO DE PAGAMENTO', dark: false },
+    { val: '+50', label: 'Indústrias atendidas recorrentemente em todo o Brasil', dark: false },
   ];
 
   return (
@@ -497,7 +516,7 @@ const StatsSection = () => {
               whileHover={{ y: -5 }}
               className={`p-12 flex flex-col justify-center items-center text-center rounded-xl shadow-lg border border-outline-variant/10 transition-all duration-300 ${stat.dark ? 'bg-black text-white' : 'bg-surface text-primary'}`}
             >
-              <span className="block font-headline font-black text-5xl mb-4">{stat.val}</span>
+              <span className={`block font-headline font-black mb-4 ${stat.val.length > 8 ? 'text-2xl lg:text-3xl' : 'text-5xl'}`}>{stat.val}</span>
               <span className={`text-[11px] font-extrabold tracking-[0.2em] uppercase ${stat.dark ? 'text-white/70' : 'text-on-surface-variant'}`}>{stat.label}</span>
             </motion.div>
           ))}
@@ -682,15 +701,17 @@ const Footer = () => {
         <div>
           <h5 className="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-accent-orange mb-6">Atendimento</h5>
           <ul className="space-y-4 text-sm text-on-surface-variant">
-            <li>Cotação Técnica</li>
-            <li>Suporte Especializado</li>
+            <li>servicos@premiumambiental.com.br</li>
+            <li>(19) 3804-9564</li>
           </ul>
         </div>
 
         <div>
-          <h5 className="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-accent-orange mb-6">Logística</h5>
+          <h5 className="font-headline font-black text-[10px] uppercase tracking-[0.2em] text-accent-orange mb-6">Endereço</h5>
           <p className="text-sm leading-[1.65] text-on-surface-variant">
-            Cobertura e entrega nacional
+            Av: Geraldo Potyguara Silveira Franco, 27<br />
+            Parque da Empresa - Mogi Mirim-SP<br />
+            CEP: 13.803-280
           </p>
         </div>
       </div>
@@ -709,8 +730,8 @@ export default function App() {
       <Hero />
       <TrustBar />
       <Pillars />
-      <QualitySection />
       <StructureCarousel />
+      <QualitySection />
       <StatsSection />
       <InstitutionalVideo />
       <Testimonials />
